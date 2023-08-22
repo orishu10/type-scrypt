@@ -1,10 +1,13 @@
+// part 1
 function biger(x: number, y: number): number {
   return x > y ? x : y;
 }
+
 function bigerLog(x: number, y: number) {
   let biger = x > y ? x : y;
   console.log(biger);
 }
+
 function odd(x: number): string {
   if (x % 2 === 0) {
     return "even";
@@ -16,6 +19,7 @@ function odd(x: number): string {
 function strLength(st: string): number {
   return st.length;
 }
+
 function arrNum(n: number): number[] {
   let arr = [];
   for (let index = 0; index < n; index++) {
@@ -81,4 +85,32 @@ function oldBook(arReader: reader[]): number {
     }
   });
   return maxYear;
+}
+//part 2
+let arrNumbers : number[] = [1,2,4,6,9,5,10];
+let c : number
+function even(arrNumbers:number[]):number {
+    arrNumbers.forEach(element => {
+        if (element % 2 === 0) {
+            c += element;  
+        }  
+    });
+    return c;
+}
+
+function radius(hight:number,width:number):number {
+    return hight * width;   
+}
+function pil(tex:number|string) {
+    if (typeof(tex) != "string"){
+        tex = tex.toString();
+    }
+ for (let index = 0; index < (tex.length / 2) ; index++) {
+    const element = tex[index];
+    const element2 = tex[tex.length-index];
+    if (element != element2) {
+        return 'not a pilndrom'
+    }
+} 
+  return 'yay we found a pilndrom '
 }
