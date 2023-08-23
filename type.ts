@@ -1,116 +1,61 @@
-// part 1
-function biger(x: number, y: number): number {
-  return x > y ? x : y;
+export enum ItemType {
+  Book = 'book',
+  DVD = 'dvd',
 }
-
-function bigerLog(x: number, y: number) {
-  let biger = x > y ? x : y;
-  console.log(biger);
-}
-
-function odd(x: number): string {
-  if (x % 2 === 0) {
-    return "even";
-  } else {
-    return "odd";
+interface Book {
+  type:string
+  title:string
+  author:string
   }
-}
 
-function strLength(st: string): number {
-  return st.length;
-}
-
-function arrNum(n: number): number[] {
-  let arr = [];
-  for (let index = 0; index < n; index++) {
-    const element = index;
-    arr.push(element);
+  interface DVD {
+    type :string
+    title:string
+    duration:number
   }
-  return arr;
-}
+  
 
-type person = {
-  Name: string;
-  Age: number;
-  isStudent: boolean;
-};
-function printPerson(person: person) {
-  console.log(person.Name);
-  console.log(person.Age.toString());
-  console.log(person.isStudent.toString());
-}
-let person1 = {
-  Name: "ori",
-  Age: 25,
-  isStudent: true,
-};
-printPerson(person1);
 
-function isMinor(person: person): boolean {
-  if (person.Age <= 18) {
-    return true;
-  } else {
+const libraryItems: (Book | DVD)[] = [
+  { type: ItemType.Book, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald' },
+  { type: ItemType.DVD, title: 'Inception', duration: 148 },
+  { type: ItemType.Book, title: 'To Kill a Mockingbird', author: 'Harper Lee' },
+  { type: ItemType.DVD, title: 'Avatar', duration: 162 },
+  { type: ItemType.Book, title: 'Go Set a Watchman', author: 'Harper Lee' },
+];
+
+
+
+
+
+  function filterItems <T extends Book | DVD >(libraryItems:T[], filterFn:(element:T)=>boolean):T[] {
+    console.log( libraryItems.filter(filterFn));
+    
+  return libraryItems.filter(filterFn)
+  }
+
+
+  function printItemsData <T extends Book | DVD> (libraryItems:T[]):void {
+     for (let index = 0; index < libraryItems.length; index++) {
+      const element = libraryItems[index];
+      console.log(element);    
+     }
+  }
+   
+
+  function filterFn<T extends Book | DVD> (element:T):boolean{
+    if ("duration" in element) {
+     return element.duration >120;
+    }
     return false;
-  }
-}
+  } 
 
-interface book {
-  title: string;
-  Author: string;
-  Year: number;
-}
-type favoriteBook = {
-  title: string;
-  Author: string;
-  Year: number;
-};
-
-type reader = person & favoriteBook;
-let maxAge: number;
-let oldReader: string;
-function older(arReader: reader[]): string {
-  arReader.forEach((element) => {
-    if (element.Age > maxAge) {
-      maxAge = element.Age;
-      oldReader = element.Name;
+  function filterHar<T extends Book | DVD> (element:T):boolean{
+    if ("author" in element) {
+     return element.author === 'Harper Lee'  ;
     }
-  });
-  return oldReader;
-}
-let maxYear: number;
-function oldBook(arReader: reader[]): number {
-  arReader.forEach((element) => {
-    if (element.Year > maxYear) {
-      maxYear = element.Year;
-    }
-  });
-  return maxYear;
-}
-//part 2
-let arrNumbers : number[] = [1,2,4,6,9,5,10];
-let c : number
-function even(arrNumbers:number[]):number {
-    arrNumbers.forEach(element => {
-        if (element % 2 === 0) {
-            c += element;  
-        }  
-    });
-    return c;
-}
-
-function radius(hight:number,width:number):number {
-    return hight * width;   
-}
-function pil(tex:number|string) {
-    if (typeof(tex) != "string"){
-        tex = tex.toString();
-    }
- for (let index = 0; index < (tex.length / 2) ; index++) {
-    const element = tex[index];
-    const element2 = tex[tex.length-index];
-    if (element != element2) {
-        return 'not a pilndrom'
-    }
-} 
-  return 'yay we found a pilndrom '
-}
+    return false;
+  } 
+   
+  filterItems(libraryItems,filterFn)
+  filterItems(libraryItems,filterHar)

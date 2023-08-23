@@ -1,65 +1,39 @@
-function biger(x, y) {
-    return x > y ? x : y;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ItemType = void 0;
+var ItemType;
+(function (ItemType) {
+    ItemType["Book"] = "book";
+    ItemType["DVD"] = "dvd";
+})(ItemType || (exports.ItemType = ItemType = {}));
+var libraryItems = [
+    { type: ItemType.Book, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald' },
+    { type: ItemType.DVD, title: 'Inception', duration: 148 },
+    { type: ItemType.Book, title: 'To Kill a Mockingbird', author: 'Harper Lee' },
+    { type: ItemType.DVD, title: 'Avatar', duration: 162 },
+    { type: ItemType.Book, title: 'Go Set a Watchman', author: 'Harper Lee' },
+];
+function filterItems(libraryItems, filterFn) {
+    console.log(libraryItems.filter(filterFn));
+    return libraryItems.filter(filterFn);
 }
-function bigerLog(x, y) {
-    var biger = x > y ? x : y;
-    console.log(biger);
-}
-function odd(x) {
-    if (x % 2 === 0) {
-        return "even";
-    }
-    else {
-        return "odd";
-    }
-}
-function strLength(st) {
-    return st.length;
-}
-function arrNum(n) {
-    var arr = [];
-    for (var index = 0; index < n; index++) {
-        var element = index;
-        arr.push(element);
-    }
-    return arr;
-}
-function printPerson(person) {
-    console.log(person.Name);
-    console.log(person.Age.toString());
-    console.log(person.isStudent.toString());
-}
-var person1 = {
-    Name: "ori",
-    Age: 25,
-    isStudent: true,
-};
-printPerson(person1);
-function isMinor(person) {
-    if (person.Age <= 18) {
-        return true;
-    }
-    else {
-        return false;
+function printItemsData(libraryItems) {
+    for (var index = 0; index < libraryItems.length; index++) {
+        var element = libraryItems[index];
+        console.log(element);
     }
 }
-var maxAge;
-var oldReader;
-function older(arReader) {
-    arReader.forEach(function (element) {
-        if (element.Age > maxAge) {
-            maxAge = element.Age;
-            oldReader = element.Name;
-        }
-    });
-    return oldReader;
+function filterFn(element) {
+    if ("duration" in element) {
+        return element.duration > 120;
+    }
+    return false;
 }
-var maxYear;
-function oldBook(arReader) {
-    arReader.forEach(function (element) {
-        if (element.Year > maxYear) {
-            maxYear = element.Year;
-        }
-    });
-    return maxYear;
+function filterHar(element) {
+    if ("author" in element) {
+        return element.author === 'Harper Lee';
+    }
+    return false;
 }
+filterItems(libraryItems, filterFn);
+filterItems(libraryItems, filterHar);
