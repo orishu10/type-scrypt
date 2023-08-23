@@ -37,3 +37,43 @@ function filterHar(element) {
 }
 filterItems(libraryItems, filterFn);
 filterItems(libraryItems, filterHar);
+var options;
+(function (options) {
+    options[options["rock"] = 0] = "rock";
+    options[options["paper"] = 1] = "paper";
+    options[options["scissors"] = 2] = "scissors";
+})(options || (options = {}));
+var moshe = {
+    play: "rock"
+};
+var elad = {
+    play: 'paper'
+};
+function playGame(player1, player2) {
+    var result;
+    if (player1.play === undefined || player2.play === undefined) {
+        throw new Error('error acourd');
+    }
+    var play1 = player1.play;
+    var play2 = player2.play;
+    switch (true) {
+        case (play1 === play2):
+            result = 'tie';
+            break;
+        case (play1 === 'paper' && play2 === 'rock'):
+            result = 'player1';
+            break;
+        case (play1 === 'rock' && play2 === 'scissors'):
+            result = 'player1';
+            break;
+        case (play1 === 'scissors' && play2 === 'paper'):
+            result = 'player1';
+        default:
+            result = 'player2';
+            break;
+    }
+    return result;
+}
+var play = playGame(moshe, elad);
+console.log(play);
+//3
